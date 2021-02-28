@@ -1,13 +1,9 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Zustand-Yjs](#zustand-yjs)
+
+- [React Jitsi Hooks](#react-jitsi-hooks)
   - [Getting started](#getting-started)
-  - [API](#api)
-    - [`useYDoc(guid: string, connect: (doc: Y.Doc) => () => void)`](#useydocguid-string-connect-doc-ydoc----void)
-    - [`useYArray(doc: Y.Array)`](#useyarraydoc-yarray)
-    - [`useYMap(doc: Y.Array)`](#useymapdoc-yarray)
-  - [Run the example](#run-the-example)
   - [Special Thanks](#special-thanks)
   - [Roadmap](#roadmap)
   - [License](#license)
