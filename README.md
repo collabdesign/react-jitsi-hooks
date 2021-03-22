@@ -20,10 +20,10 @@ Hooks and stores for lib-jitsi-meet low API level.
 
 ## Getting started
 
-Install dependancy `@lyno/lib-jitsi-meet` and `zustand`
+Install dependancy `@lyno/lib-jitsi-meet`, `react` and `zustand`
 
 ```
-yarn add @lyno/lib-jitsi-meet zustand
+yarn add @lyno/lib-jitsi-meet zustand react react-dom
 ```
 
 ## Special Thanks
