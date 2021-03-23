@@ -10,7 +10,7 @@ const useRoom = create<UseRoomState>((set, get) => ({
   },
   room: null,
   setRoom(room) {
-    set({room});
+    set({ room })
   },
   isJoined: false,
   join() {
@@ -44,8 +44,8 @@ const useRoom = create<UseRoomState>((set, get) => ({
     })
   },
   addRemoteTrack(id, track) {
-    if(!track) {
-      Log.warn(`track ${id} is undefined`);
+    if (!track) {
+      Log.warn(`track ${id} is undefined`)
     }
     const remoteTracks = get().remoteTracks[`${id}`] || []
     set({
@@ -56,9 +56,11 @@ const useRoom = create<UseRoomState>((set, get) => ({
     })
   },
   removeRemoteTrack(id) {
-    const tracks = get().remoteTracks;
-    Log.info(`remove remote track ${id} in (${Object.keys(tracks).join(', ')}) `)
-    tracks[`${id}`] = [];
+    const tracks = get().remoteTracks
+    Log.info(
+      `remove remote track ${id} in (${Object.keys(tracks).join(', ')}) `
+    )
+    tracks[`${id}`] = []
     delete tracks[`${id}`]
     set({ remoteTracks: { ...tracks } })
   },

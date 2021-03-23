@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useCallback, useMemo } from 'react'
+import { useEffect, useCallback } from 'react'
 import JitsiMeetJS from '@lyno/lib-jitsi-meet'
 import useRoomState from './useRoomState'
 import { UseRoomProps } from './useRoom.types'
 import Log from './logger'
 import shallow from 'zustand/shallow'
 import { DeviceId } from './device.types'
-import ParticipantConnectionStatusHandler from '@lyno/lib-jitsi-meet/modules/connectivity/ParticipantConnectionStatus'
 import { Room } from './useRoomState.types'
 const useRoom = (props?: UseRoomProps) => {
   const {
@@ -13,7 +12,6 @@ const useRoom = (props?: UseRoomProps) => {
     initOptions = {},
     roomOptions = {},
     connectionOptions = {},
-    startVideo = true,
   } = props || {}
   const [connection, connectionState] = useRoomState(
     useCallback((state) => [state.connection, state.connectionState], []),
@@ -95,7 +93,7 @@ const useRoom = (props?: UseRoomProps) => {
         muc: 'conference.meet.jit.si',
         focus: 'focus.meet.jit.si',
       },
-      externalConnectUrl: 'https://meet.jit.si/http-pre-bind',
+      externalConnectUrl: `https://meet.jit.si/http-bind?room=${roomName}`,
       enableP2P: true,
       p2p: {
         enabled: true,
@@ -160,90 +158,109 @@ const useRoom = (props?: UseRoomProps) => {
     onDeviceListChanged,
   ])
 
-  const onRemoteTrack = useCallback((track: JitsiMeetJS.JitsiTrack) => {
-    if (track.isLocal()) {
-      Log.log('local track', track)
-      return
-    }
-    const participant = '' + track.getParticipantId()
-    addRemoteTrack(participant, {
-      jitsi: track,
-      _id: `${+new Date()}`,
-      type: track.getType(),
-    })
+  const onRemoteTrack = useCallback(
+    (track: JitsiMeetJS.JitsiTrack) => {
+      if (track.isLocal()) {
+        Log.log('local track', track)
+        return
+      }
+      const participant = '' + track.getParticipantId()
+      addRemoteTrack(participant, {
+        jitsi: track,
+        _id: `${+new Date()}`,
+        type: track.getType(),
+      })
 
-    track.addEventListener(
-      JitsiMeetJS.events.track.TRACK_AUDIO_LEVEL_CHANGED,
-      (audioLevel: number) => Log.info(`Audio Level remote: ${audioLevel}`)
-    )
-    track.addEventListener(JitsiMeetJS.events.track.TRACK_MUTE_CHANGED, () => {
-      Log.info('TRACK_MUTE_CHANGED remote track muted')
-      setRemoteTrack(participant, track, { isMuted: true })
-    })
-    track.addEventListener(JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED, () =>
-      Log.info('LOCAL_TRACK_STOPPED remote track stoped')
-    )
-    track.addEventListener(
-      JitsiMeetJS.events.track.TRACK_AUDIO_OUTPUT_CHANGED,
-      (deviceId: DeviceId) =>
-        Log.info(`track audio output device was changed to ${deviceId}`)
-    )
-  }, [addRemoteTrack, setRemoteTrack  ]);
-
-  const onConferenceJoined = useCallback((room: Room) => {
-    Log.info('conference joined, add local track to the room')
-    join()
-    for (let i = 0; i < localTracks.length; i++) {
-      room.addTrack(localTracks[i])
-    }
-  }, [join, localTracks]);
-
-  const onUserLeft = useCallback((participant: string) => {
-    Log.info('user left')
-    if (!remoteTracks[participant]) {
-      Log.warn(`Participant ${participant} not referenced in ${Object.keys(remoteTracks).join(', ')}`)
-      return
-    }
-    removeRemoteTrack(participant)
-  }, [removeRemoteTrack, remoteTracks]);
-
-  const onLocalTracks = useCallback(async (localTracks: JitsiMeetJS.JitsiLocalTrack) => {
-    if(!room) return;
-    Log.info('Local track changed');
-    for (let i = 0; i < localTracks.length; i++) {
-      localTracks[i].addEventListener(
+      track.addEventListener(
         JitsiMeetJS.events.track.TRACK_AUDIO_LEVEL_CHANGED,
-        (audioLevel: number) => Log.info(`Audio Level local: ${audioLevel}`)
+        (audioLevel: number) => Log.info(`Audio Level remote: ${audioLevel}`)
       )
-      localTracks[i].addEventListener(
+      track.addEventListener(
         JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
-        () => Log.info('TRACK_MUTE_CHANGED local track muted')
+        () => {
+          Log.info('TRACK_MUTE_CHANGED remote track muted')
+          setRemoteTrack(participant, track, { isMuted: true })
+        }
       )
-      localTracks[i].addEventListener(
-        JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
-        () => Log.info('LOCAL_TRACK_STOPPED local track stoped')
+      track.addEventListener(JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED, () =>
+        Log.info('LOCAL_TRACK_STOPPED remote track stoped')
       )
-      localTracks[i].addEventListener(
+      track.addEventListener(
         JitsiMeetJS.events.track.TRACK_AUDIO_OUTPUT_CHANGED,
-        (deviceId: string) =>
+        (deviceId: DeviceId) =>
           Log.info(`track audio output device was changed to ${deviceId}`)
       )
+    },
+    [addRemoteTrack, setRemoteTrack]
+  )
 
-      if (isJoined) {
-        try{
-          await room.addTrack(localTracks[i])
-        }catch(e) {
-          Log.error(e);
-          return;
-        }
+  const onConferenceJoined = useCallback(
+    (room: Room) => {
+      Log.info('conference joined, add local track to the room')
+      join()
+      for (let i = 0; i < localTracks.length; i++) {
+        room.addTrack(localTracks[i])
       }
-      addLocalTrack({
-        jitsi: localTracks[i],
-        _id: `${+new Date()}`,
-        type: localTracks[i].getType(),
-      })
-    }
-  }, [room, addLocalTrack, isJoined]);
+    },
+    [join, localTracks]
+  )
+
+  const onUserLeft = useCallback(
+    (participant: string) => {
+      Log.info('user left')
+      if (!remoteTracks[participant]) {
+        Log.warn(
+          `Participant ${participant} not referenced in ${Object.keys(
+            remoteTracks
+          ).join(', ')}`
+        )
+        return
+      }
+      removeRemoteTrack(participant)
+    },
+    [removeRemoteTrack, remoteTracks]
+  )
+
+  const onLocalTracks = useCallback(
+    async (localTracks: JitsiMeetJS.JitsiLocalTrack) => {
+      if (!room) return
+      Log.info('Local track changed')
+      for (let i = 0; i < localTracks.length; i++) {
+        localTracks[i].addEventListener(
+          JitsiMeetJS.events.track.TRACK_AUDIO_LEVEL_CHANGED,
+          (audioLevel: number) => Log.info(`Audio Level local: ${audioLevel}`)
+        )
+        localTracks[i].addEventListener(
+          JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+          () => Log.info('TRACK_MUTE_CHANGED local track muted')
+        )
+        localTracks[i].addEventListener(
+          JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+          () => Log.info('LOCAL_TRACK_STOPPED local track stoped')
+        )
+        localTracks[i].addEventListener(
+          JitsiMeetJS.events.track.TRACK_AUDIO_OUTPUT_CHANGED,
+          (deviceId: string) =>
+            Log.info(`track audio output device was changed to ${deviceId}`)
+        )
+
+        if (isJoined) {
+          try {
+            await room.addTrack(localTracks[i])
+          } catch (e) {
+            Log.error(e)
+            return
+          }
+        }
+        addLocalTrack({
+          jitsi: localTracks[i],
+          _id: `${+new Date()}`,
+          type: localTracks[i].getType(),
+        })
+      }
+    },
+    [room, addLocalTrack, isJoined]
+  )
 
   useEffect(() => {
     if (!connection) return
@@ -256,21 +273,22 @@ const useRoom = (props?: UseRoomProps) => {
   }, [onLocalTracks, connection])
 
   useEffect(() => {
-    if (!connection || room || connectionState !== 'connected' || isJoined) return
+    if (!connection || room || connectionState !== 'connected' || isJoined)
+      return
     // Create a room
     const _room = connection.initJitsiConference('conference', {
       openBridgeChannel: true,
       ...roomOptions,
     })
-    setRoom(_room);
+    setRoom(_room)
     const successCallback = () => {
-      onConferenceJoined(_room);
+      onConferenceJoined(_room)
     }
     _room.on(JitsiMeetJS.events.conference.TRACK_ADDED, onRemoteTrack)
     _room.on(
       JitsiMeetJS.events.conference.TRACK_REMOVED,
       (track: JitsiMeetJS.JitsiTrack) => {
-        removeRemoteTrack(track.getParticipantId());
+        removeRemoteTrack(track.getParticipantId())
       }
     )
     _room.on(JitsiMeetJS.events.conference.CONFERENCE_JOINED, successCallback)
@@ -299,6 +317,18 @@ const useRoom = (props?: UseRoomProps) => {
       Log.info(`${room.getPhoneNumber()} - ${room.getPhonePin()}`)
     )
     _room.join()
-  }, [connectionState, room, connection, isJoined, roomOptions, addRemoteTrack, setRoom, onUserLeft, onRemoteTrack, onConferenceJoined, removeRemoteTrack])
+  }, [
+    connectionState,
+    room,
+    connection,
+    isJoined,
+    roomOptions,
+    addRemoteTrack,
+    setRoom,
+    onUserLeft,
+    onRemoteTrack,
+    onConferenceJoined,
+    removeRemoteTrack,
+  ])
 }
 export default useRoom
