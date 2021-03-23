@@ -1,0 +1,80 @@
+/* stylelint-disable docusaurus/copyright-header */
+
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.references {
+  display: flex;
+  align-items: center;
+  padding: 64px 0;
+  width: 100%;
+}
+
+.referenceHeading {
+  font-size: 3.5rem;
+  text-align: center;
+}
+.referenceSubHeading {
+  text-align: center;
+  display: block;
+  padding-bottom: 3em;
+  font-style: italic;
+}
+.referenceItem {
+  border: 1px solid var(--ra-color-text-dark);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding-top: 1em ​ !important;
+  margin: 0 32px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+}
+.referenceItem:hover {
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+
+  background-color: var(--ifm-footer-background-color);
+  border-color: var(--ifm-color-primary-dark);
+}
+
+.referenceRow {
+  justify-content: center !important;
+}
+
+.featureImage {
+  height: 200px;
+  width: 200px;
+}
