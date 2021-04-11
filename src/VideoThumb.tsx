@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { TrackRecord } from '../useRoomState.types'
+import { TrackRecord } from './useRoomState.types'
 import Video from './Video'
 import Audio from './Audio'
 
