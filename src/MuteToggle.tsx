@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import Log from '../logger'
-import useLocalTracks from '../useLocalTracks'
+import Log from './logger'
+import useLocalTracks from './useLocalTracks'
 
 type MuteToggleProps = {
   mutedElement: React.ReactNode

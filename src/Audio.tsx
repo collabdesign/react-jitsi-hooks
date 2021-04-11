@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { TrackRecord } from '../useRoomState.types'
+import { TrackRecord } from './useRoomState.types'
 
 export type AudioProps = {
   track: TrackRecord

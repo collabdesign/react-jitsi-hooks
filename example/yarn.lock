@@ -9199,10 +9199,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-jitsi-hooks@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-jitsi-hooks/-/react-jitsi-hooks-0.0.1.tgz#f40436e87a89f432e5c9d64899ae22ebe5163f6f"
-  integrity sha512-nfk4JjPeNMQxKviISPK704wnjtwPn0qIztUfGOjQh5p66pozSCaIXuQ/D2GjQa99Jy0SuI3D5kmn9LfLNn6/sg==
+react-jitsi-hooks@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-jitsi-hooks/-/react-jitsi-hooks-0.0.4.tgz#f9a5648a61ee98f15d4e6627da4910522160140e"
+  integrity sha512-cOJYFfyjFBxfbBgxC1SXQNVJ36WqFso/d0gcVQ2urNlcecsIQqT55yKT8JFLcc58jx3YB+4Mh07MO+1kcH4AOQ==
 
 react-refresh@^0.8.3:
   version "0.8.3"
