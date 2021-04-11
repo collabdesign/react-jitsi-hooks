@@ -18,13 +18,9 @@
 
 Hooks and stores for lib-jitsi-meet low API level.
 
-## Getting started
+## Documentation
 
-Install dependancy `@lyno/lib-jitsi-meet`, `react` and `zustand`
-
-```
-yarn add @lyno/lib-jitsi-meet zustand react react-dom
-```
+Check out [https://collabdesign.github.io/react-jitsi-hooks](https://collabdesign.github.io/react-jitsi-hooks)
 
 ## Special Thanks
 
