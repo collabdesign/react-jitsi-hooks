@@ -7,8 +7,7 @@ Component to stream video and audio to a `<video>` and `<audio>` html5 tag.
 **Use only for remote tracks**: Local track don't need audio ;)
 
 ```jsx {13} title="/src/App.js"
-import { useRoom, useRoomState } from 'react-jitsi-hooks'
-import { VideoThumb } from 'react-jitsi-hooks/ui'
+import { useRoom, useRoomState, VideoThumb } from 'react-jitsi-hooks'
 
 const App = () =>  {
   //  Connect to the conference

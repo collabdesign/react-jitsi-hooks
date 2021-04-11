@@ -14,7 +14,7 @@ const external = (id) => {
 const extensions = ['.js', '.ts', '.tsx']
 const getBabelOptions = (targets) => {
   const config = createBabelConfig({ env: (env) => env === 'build' }, targets)
-  if (targets.ie) {
+  if (true) {
     config.plugins = [
       ...config.plugins,
       '@babel/plugin-transform-regenerator',
@@ -105,5 +105,5 @@ export default [
   createDeclarationConfig('src/index.ts', 'dist'),
   createESMConfig('src/index.ts', 'dist/index.js'),
   createCommonJSConfig('src/index.ts', 'dist/index.cjs.js'),
-  createIIFEConfig('src/index.ts', 'dist/index.iife.js', 'zustandYjs'),
+  createIIFEConfig('src/index.ts', 'dist/index.iife.js', 'ReactJitsiHooks'),
 ]

@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react'
-import JitsiMeetJS from '@lyno/lib-jitsi-meet'
 import Log from '../logger'
 import useLocalTracks from '../useLocalTracks'
 
