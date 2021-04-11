@@ -1,0 +1,20 @@
+/* TEAM */
+    Production: Tandem – Digital Lab
+    Website: https://digital-lab.pt
+    Contact: Hadrien, hadrien [at] tandem [dot] pt
+    From:    Portugal
+
+    Sponsor: Colab Colibri Assessoria LTDA
+    Website: https://colabcolibri.com
+    Contact: Sergio, contato [at] colabcolibri [dot] com
+    From:    Brasil
+
+    Ideas:   Facilita Social
+    Website: https://facilita.social
+    Contact: Ravi, ravi [at] collabdesign [dot] org
+    From:    Portugal/Brasil
+
+/* THANKS */
+    CollabDesign
+    Website: https://collabdesign.org
+    From:    Worldwide
