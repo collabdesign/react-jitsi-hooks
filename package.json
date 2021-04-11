@@ -7,9 +7,9 @@
   "module": "esm/index.js",
   "types": "index.d.ts",
   "author": "Hadrien Froger",
-  "homepage": "https://github.com/tandem-pt/react-jitsi-hooks",
+  "homepage": "https://github.com/collabdesign/react-jitsi-hooks",
   "bugs": {
-    "url": "https://github.com/tandem-pt/react-jitsi-hooks/issues"
+    "url": "https://github.com/collabdesign/react-jitsi-hooks/issues"
   },
   "contributors": [],
   "license": "MIT",

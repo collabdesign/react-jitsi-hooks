@@ -3,7 +3,7 @@ module.exports = {
   title: 'React-Jitsi-Hooks',
   tagline: 'Jitsi Low Level API, easy mode',
   url: 'https://collabdesign.org/',
-  baseUrl: '/',
+  baseUrl: '/react-jitsi-hooks/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'favicon.ico',
@@ -39,16 +39,12 @@ module.exports = {
       <div id="__docusaurus">
         <%~ it.appHtml %>
       </div>
-      <div id="outside-docusaurus">
-        <span>Custom markup</span>
-      </div>
       <% it.scripts.forEach((script) => { %>
         <script type="text/javascript" src="<%= it.baseUrl %><%= script %>"></script>
       <% }); %>
       <%~ it.postBodyTags %>
     </body>
   </html>
-  };
   `,
   themeConfig: {
     navbar: {
