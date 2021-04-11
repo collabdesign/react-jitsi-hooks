@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useRoom, useRoomState, useLocalTracks } from 'react-jitsi-hooks'
-import { VideoThumb, Video, MuteToggle } from 'react-jitsi-hooks/ui'
+import React, { useState } from 'react'
+import {
+  useRoom,
+  useRoomState,
+  useLocalTracks,
+  VideoThumb,
+  Video,
+  MuteToggle,
+} from 'react-jitsi-hooks'
 import './App.css'
 const Demo = () => {
   useRoom({ roomName: 'root' })
@@ -23,7 +29,7 @@ const Demo = () => {
           {video && <Video track={video} />}
           {video && (
             <MuteToggle
-              mutedElement="unmute"
+              mutedlement="unmute"
               unMutedElement="mute"
               onToggle={(isMuted) => {
                 console.info(

@@ -6,8 +6,7 @@ Mute/Unmute the audio local tracks. **Remote track won't work for now**.
 
 
 ```jsx {8} title="/src/App.js"
-import { useRoom, useLocalTracks } from 'react-jitsi-hooks'
-import {  MuteToggle } from 'react-jitsi-hooks/ui'
+import { useRoom, useLocalTracks , MuteToggle} from 'react-jitsi-hooks'
 
 const App = () =>  {
   //  Connect to the conference
