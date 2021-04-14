@@ -31,6 +31,10 @@ const references = [
     description: <>Check out the lib</>,
   },
 ]
+
+const InlineLink =( {href, children}) => {
+  return <a href={useBaseUrl(href)}>{children}</a>
+}
 const features = [
   {
     title: 'Easy to Use',
@@ -40,7 +44,7 @@ const features = [
         API designed to be easy to use, iframes-free.
         <br />
         No limitation to your creativity,{' '}
-        <a href="/docs/guides">just need to get started</a>
+        <InlineLink href={"/docs/guides"}>just need to get started</InlineLink>
       </>
     ),
   },
@@ -64,7 +68,7 @@ const features = [
         Created with awesome services of Jitsi and their low level api
         lib-jitsi-meet.
         <br />
-        <a href="/docs/api">Discover our API</a>
+        <InlineLink href={"/docs/api/"}>Discover our API</InlineLink>
       </>
     ),
   },
@@ -87,7 +91,7 @@ function Feature({ imageUrl, title, description }) {
 function Reference({ link, title, description }) {
   return (
     <a
-      href={link}
+      href={link.startsWith("/") ? useBaseUrl(link) : link}
       className={clsx('col col--2', styles.referenceItem)}
       style={{ paddingTop: '1em' }}>
       <h3>{title}</h3>
