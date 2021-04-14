@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import JitsiMeetJS from '@lyno/lib-jitsi-meet'
 import useRoomState from './useRoomState'
 import { UseRoomProps } from './useRoom.types'
